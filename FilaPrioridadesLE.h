@@ -90,7 +90,7 @@ void exibe(no *L)
     no *P = L;
 
     while (P != NULL) {
-        printf("P%d-%c : ", P->prior, P->info);
+        printf("%d-%c : ", P->prior, P->info);
         P = P->link;
     }
 }
