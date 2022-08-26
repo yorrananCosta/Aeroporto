@@ -1,24 +1,43 @@
+// Yorranan Neves de Almeida Costa - Turma C 
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
 #include "FilaPrioridadesLE.h"
 
 using namespace std;
-/*
-no *preenche_voos(no *L) {
-    int prioridade_rand;
-    int numero_voo_rand;
-    int tempo;
-    srand(time(NULL));
-    tempo = clock();
-    while (clock() - tempo < 200) {
-        prioridade_rand = rand()%4 + 1;
-        numero_voo_rand = rand()%999;
-    };
-    L = insereFilaChegada(L, numero_voo_rand, prioridade_rand);
-    return L;
+
+void mostrar_banner() {
+    cout << "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKo,..kM" << endl;
+    cout << "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMXo.   ;KM" << endl;
+    cout << "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMXd.   .lXMM" << endl;
+    cout << "MMMMMMWNNNNWWWMMMMMMMMMMMMMXx'    .xNMMM" << endl;
+    cout << "MMMMW0c'.''',,;;::ccccllool'     ,0WMMMM" << endl;
+    cout << "MMMWk'                          cXMMMMMM" << endl;
+    cout << "MMMWXOxo:,.                    '0MMMMMMM" << endl;
+    cout << "MMMMMMMMMWX0xoc,..              oWMMMMMM" << endl;
+    cout << "MMMMMMMMMMMMMMMWX0d'            .OMMMMMM" << endl;
+    cout << "MMMMMMMMMMMMMMMMMXl.             :XMMMMM" << endl;
+    cout << "MMMMMMMMMMMMMMMM0;     .ld,       dWMMMM" << endl;
+    cout << "MMMMMMMMMMMMMMWk'    .l0WMK:      'OMMMM" << endl;
+    cout << "MMMMMMMMMMMMMNo.  .lx0WMMMMNd.     cNMMM" << endl;
+    cout << "MMMMMWWMMMMMK:  .lKWMMMMMMMMWk'    .xWMM" << endl;
+    cout << "MMMNx;,:lokx, .lKWMMMMMMMMMMMMK:    ,0MM" << endl;
+    cout << "MMM0:.       'OWMMMMMMMMMMMMMMMNo.   dWM" << endl;
+    cout << "MMMMWX0xo:.  .lXMMMMMMMMMMMMMMMMWk'.cKMM" << endl;
+    cout << "MMMMMMMMMWKo.  ,0WMMMMMMMMMMMMMMMMKONMMM" << endl;
+    cout << "MMMMMMMMMMMWO, .dWMMMMMMMMMMMMMMMMMMMMMM" << endl;
+    cout << "MMMMMMMMMMMMM0:oNMMMMMMMMMMMMMMMMMMMMMMM" << endl;
+    cout << "MMMM SISTEMA DE POUSOS E DECOLAGENS MMMM" << endl;
+    cout << "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM" << endl;
 }
-*/
+
+int prioridade_aleatoria() {
+    int prioridade;
+    prioridade = (rand()%4) + 1;
+    return prioridade;
+}
+
 int main(void) {
     no *Fila_espera;
     no *Pista_pouso;
@@ -33,29 +52,25 @@ int main(void) {
     Pista_pouso = inicializaFP(Pista_pouso);
     Pista_decolagem = inicializaFP(Pista_decolagem);
 
-    Fila_espera = insereFilaChegada(Fila_espera, 1, 1);
-    Fila_espera = insereFilaChegada(Fila_espera, 2, 2);
-    Fila_espera = insereFilaChegada(Fila_espera, 3, 3);
-    Fila_espera = insereFilaChegada(Fila_espera, 4, 4);
-    Fila_espera = insereFilaChegada(Fila_espera, 5, 1);
-    Fila_espera = insereFilaChegada(Fila_espera, 6, 2);
-    Fila_espera = insereFilaChegada(Fila_espera, 7, 3);
-    Fila_espera = insereFilaChegada(Fila_espera, 8, 4);
-    Fila_espera = insereFilaChegada(Fila_espera, 9, 1);
-    Fila_espera = insereFilaChegada(Fila_espera, 10, 2);
-    /*
-    for(int i = 0; i < 10; i++) {
-        Fila_espera = preenche_voos(Fila_espera);
+    srand(time(NULL));
+    for(int i = 1; i <= 30; ++i) {
+        Fila_espera = insereFilaChegada(Fila_espera, i, prioridade_aleatoria());
     }
-    */
+    cout << "Fila de espera:" << endl;
+    exibe(Fila_espera);
+    cout << "\n" << endl;
+    mostrar_banner();
+
     for(unidade_tempo = 1; continua; unidade_tempo++) {
+        
+        cout << "\n";
         if((unidade_terceira_de_tempo > 2) || (Pista_decolagem == NULL)) {
             unidade_terceira_de_tempo = 0;
         }
         bool verifica_selecionado_pouso = false;
         bool verifica_selecionado_decolagem = false;    
-        cout << "---------------------------------------------------------------------------------------------" << endl;
-        cout << "-------------------------------  UNIDADE DE TEMPO: " << unidade_tempo << " --------------------------------------" << endl;
+        cout << "----------------------------------------" << endl;
+        cout << "--------- UNIDADE DE TEMPO: " << unidade_tempo << " ---------" << endl;
         for(int i = 0; i < 2; i++){
             if(!verificaSeVazia(Fila_espera)) {
                 Fila_espera = removeFP(Fila_espera, &informacao, &prioridade);
@@ -78,6 +93,7 @@ int main(void) {
         else if (!verificaSeVazia(Pista_pouso)) {
             cout << "\nPista de pouso lotada com: " << Pista_pouso->info << endl;
         }
+
         if(unidade_terceira_de_tempo == 2) {
             if(!verificaSeVazia(Pista_decolagem)) {
                 cout << "Pista de decolagem lotada com:" << Pista_decolagem->info << endl;
@@ -92,8 +108,9 @@ int main(void) {
             continua = false;
         }
         unidade_terceira_de_tempo++;
+        
     }
-
+    cout << "\nYorranan - 2022" << endl;
     return 0;
 
-}
+    }

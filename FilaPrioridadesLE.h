@@ -90,8 +90,8 @@ void exibe(no *L) {
     no *P = L;
 
     while (P != NULL) {
-        printf("%d%c : ", P->prior, P->info);
+        printf("\n");
+        printf("Prioridade: %d - Aviao: %d", P->prior, P->info);
         P = P->link;
     }
 }
-
