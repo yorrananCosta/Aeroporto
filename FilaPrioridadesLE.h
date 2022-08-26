@@ -1,4 +1,5 @@
 #include <malloc.h>
+#include <stdlib.h>
 
 typedef struct node {
     int info;
@@ -85,12 +86,12 @@ int verificaSeVazia(no *L) {
 		return 0;
 }
 
-void exibe(no *L)
-{
+void exibe(no *L) {
     no *P = L;
 
     while (P != NULL) {
-        printf("%d-%c : ", P->prior, P->info);
+        printf("%d%c : ", P->prior, P->info);
         P = P->link;
     }
 }
+
